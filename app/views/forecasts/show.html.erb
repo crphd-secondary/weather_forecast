@@ -1,0 +1,57 @@
+<h1><%= t("forecasts.title") %></h1>
+
+<%= render "form", address: @search.address %>
+
+<% if @result.success? %>
+  <section class="forecast">
+    <h2><%= @result.location.formatted_address %></h2>
+    <p><%= t(".zip_code_html", zip_code: tag.strong(@result.location.zip_code)) %></p>
+
+    <p class="source">
+      <% if @result.cached? %>
+        <span class="badge cached"><%= t(".cached") %></span>
+        <%= t(".cached_since", time: time_ago_in_words(@result.fetched_at)) %>
+      <% else %>
+        <span class="badge live"><%= t(".live") %></span>
+        <%= t(".live_since") %>
+      <% end %>
+    </p>
+
+    <p class="current">
+      <%= t(".current_html", temperature: tag.strong(t(".temperature", degrees: @result.forecast.current_temperature.round))) %>
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th><%= t(".day") %></th>
+          <th><%= t(".high") %></th>
+          <th><%= t(".low") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @result.forecast.days.each do |day| %>
+          <tr>
+            <td><%= l(day.date, format: :forecast_day) %></td>
+            <td><%= t(".temperature", degrees: day.high.round) %></td>
+            <td><%= t(".temperature", degrees: day.low.round) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if @result.locations.size > 1 %>
+      <%= form_with url: forecast_path, method: :get, class: "other-addresses" do |form| %>
+        <%= form.hidden_field :address, value: @search.address %>
+        <%= form.label :selected, t(".other_addresses") %>
+        <%= form.select :selected,
+                        @result.locations.each_with_index.map { |location, index| [ t(".address_option", address: location.formatted_address, zip_code: location.zip_code), index ] },
+                        { selected: @result.selected_index },
+                        onchange: "this.form.requestSubmit()" %>
+        <%= form.submit t(".show_forecast"), name: nil %>
+      <% end %>
+    <% end %>
+  </section>
+<% else %>
+  <p class="error"><%= @result.error %></p>
+<% end %>

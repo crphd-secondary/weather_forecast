@@ -1,0 +1,5 @@
+<%= form_with url: forecast_path, method: :get do |form| %>
+  <%= form.label :address, t(".address_label") %>
+  <%= form.text_field :address, value: address, placeholder: t(".address_placeholder"), size: 50, required: true %>
+  <%= form.submit t(".submit"), name: nil %>
+<% end %>
