@@ -53,3 +53,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webmock"
 end
+
+gem "faraday", "~> 2.15"
