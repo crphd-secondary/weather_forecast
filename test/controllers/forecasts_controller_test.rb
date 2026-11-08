@@ -70,4 +70,16 @@ class ForecastsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".error", I18n.t("forecast_service.errors.address_not_found", address: "nowhere")
   end
+
+  test "uses the best match when the selected index is empty" do
+    stub_geocode(zip_codes: [ "62701", "65801" ])
+    stub_forecast
+
+    with_memory_cache do
+      get forecast_path, params: { address: "100 Main St, Springfield", selected: "" }
+
+      assert_response :success
+      assert_select "h2", /62701/
+    end
+  end
 end

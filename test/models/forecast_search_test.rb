@@ -19,4 +19,8 @@ class ForecastSearchTest < ActiveSupport::TestCase
   test "selects the best match when no index is given" do
     assert_equal ForecastService::BEST_MATCH_INDEX, ForecastSearch.new(address: "1 Main St").selected
   end
+
+  test "selects the best match when the index is empty" do
+    assert_equal ForecastService::BEST_MATCH_INDEX, ForecastSearch.new(address: "1 Main St", selected: "").selected
+  end
 end
