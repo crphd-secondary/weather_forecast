@@ -2,8 +2,6 @@ class CensusGeocoder
   CACHE_TTL = 1.day
   UNEXPECTED_RESPONSE = "Unexpected response body".freeze
 
-  Location = Data.define(:latitude, :longitude, :zip_code, :formatted_address)
-
   def locate(address:)
     cached_locations = Rails.cache.read(cache_key(address))
     return build_cached_result(cached_locations) if cached_locations
