@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  forecast_service:
+    errors:
+      address_not_found: "Could not find the address \"%{address}\"."
+      zip_code_not_found: "Could not find a zip code for \"%{address}\". Please provide a more complete address."
+      generic: "Could not retrieve the forecast right now. Please try again later."
