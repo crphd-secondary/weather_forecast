@@ -35,5 +35,8 @@ module WeatherForecast
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.x.census_geocoder.base_url = "https://geocoding.geo.census.gov"
+    config.x.open_meteo.base_url = "https://api.open-meteo.com"
   end
 end
