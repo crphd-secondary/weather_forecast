@@ -43,23 +43,27 @@ en:
       forecast_day: "%a, %b %-d"
   forecasts:
     title: "Weather Forecast"
+    subtitle: "Enter a US street address to see the current temperature and the 7-day forecast."
+    attribution_html: "Addresses by the %{census}. Weather data by %{open_meteo}."
+    census: "US Census Geocoder"
+    open_meteo: "Open-Meteo"
     form:
       address_label: "Address"
       address_placeholder: "1600 Pennsylvania Ave NW, Washington, DC"
       submit: "Get forecast"
+      submitting: "Loading…"
     show:
-      zip_code_html: "Zip code: %{zip_code}"
+      zip_code_html: "Zip code %{zip_code}"
       cached: "Cached"
-      cached_since: "fetched %{time} ago"
+      cached_since: "Fetched %{time} ago. Forecasts are cached for 30 minutes per zip code."
       live: "Live"
-      live_since: "fetched just now"
-      current_html: "Current: %{temperature}"
+      live_since: "Fetched just now."
+      current: "now"
       temperature: "%{degrees}°F"
       day: "Day"
       high: "High"
       low: "Low"
       other_addresses: "Other addresses matching your search"
-      address_option: "%{address} (%{zip_code})"
       show_forecast: "Show forecast"
   forecast_service:
     errors:

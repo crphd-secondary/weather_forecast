@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
     <title><%= content_for(:title) || "Weather Forecast" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,16 +18,31 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%# Includes application styles and the compiled Tailwind stylesheet. %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <% flash.each do |type, message| %>
-      <p class="flash <%= type %>"><%= message %></p>
-    <% end %>
+  <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
+    <main class="mx-auto max-w-2xl px-4 py-10 sm:py-16">
+      <header class="mb-8">
+        <h1 class="text-3xl font-bold tracking-tight">
+          <%= link_to t("forecasts.title"), root_path, class: "hover:text-sky-700" %>
+        </h1>
+        <p class="mt-2 text-slate-600"><%= t("forecasts.subtitle") %></p>
+      </header>
 
-    <%= yield %>
+      <% flash.each do |type, message| %>
+        <p class="flash <%= type %> mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert"><%= message %></p>
+      <% end %>
+
+      <%= yield %>
+
+      <footer class="mt-12 text-xs leading-relaxed text-slate-500">
+        <%= t("forecasts.attribution_html",
+              census: link_to(t("forecasts.census"), "https://geocoding.geo.census.gov", class: "underline hover:text-slate-600"),
+              open_meteo: link_to(t("forecasts.open_meteo"), "https://open-meteo.com", class: "underline hover:text-slate-600")) %>
+      </footer>
+    </main>
   </body>
 </html>
