@@ -55,3 +55,5 @@ group :test do
 end
 
 gem "faraday", "~> 2.15"
+
+gem "tailwindcss-rails", "~> 4.7"
