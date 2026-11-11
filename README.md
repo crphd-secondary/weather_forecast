@@ -18,7 +18,7 @@ The container runs Rails in production mode with Solid Cache, configured for loc
 
 ### Locally
 
-Requirements: Ruby 3.2.11 (see `.ruby-version`) and SQLite.
+Requirements: Ruby 3.4.12 (see `.ruby-version`) and SQLite.
 
 ```bash
 bin/setup --skip-server
@@ -33,9 +33,10 @@ Try an address such as `1600 Pennsylvania Ave NW, Washington, DC` or `100 Main S
 
 ```bash
 bin/rails test
+bin/rails test:system
 ```
 
-External APIs are stubbed with WebMock, so the suite runs offline.
+The second command runs browser tests in headless Chrome. They cover a search, switching to another matching address and the cached badge. External APIs are stubbed with WebMock in both suites, so they run offline.
 
 ## Choosing the APIs
 
@@ -99,4 +100,3 @@ The cache store is Solid Cache in production and an in-memory store in developme
 ## What I would improve
 
 - Handle incomplete or malformed API responses as a clear failure instead of an error page.
-- Add a browser system test for the address selector and its Turbo Frame update.
